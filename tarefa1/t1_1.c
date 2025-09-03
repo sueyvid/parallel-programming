@@ -34,15 +34,6 @@ int main() {
         }
     }
 
-    // Imprimir matriz
-    printf("Matriz:\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("%d ", M[i][j]);
-        }
-        printf("\n");
-    }
-
     // Alocar vetor
     int *V = (int *)malloc(n * sizeof(int));
 
@@ -51,24 +42,11 @@ int main() {
         V[i] = i + 1;
     }
 
-    // Imprimir vetor
-    printf("Vetor:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", V[i]);
-    }
-    printf("\n");
-
     // Alocar resultado
     int *resultado = (int *)malloc(n * sizeof(int));
 
     // Multiplicação (MxV)
     mul_matriz_vetor_linha_externa(M, V, resultado, n, n);
-
-    printf("Resultado da multiplicação:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", resultado[i]);
-    }
-    printf("\n");
 
     // Liberar memória
     for (int i = 0; i < n; i++) {
