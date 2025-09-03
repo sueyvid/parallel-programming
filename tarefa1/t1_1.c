@@ -46,7 +46,9 @@ int main() {
     int *resultado = (int *)malloc(n * sizeof(int));
 
     // Multiplicação (MxV)
-    mul_matriz_vetor_linha_externa(M, V, resultado, n, n);
+    for (int rep = 0; rep < 100000; rep++) {
+        mul_matriz_vetor_linha_externa(M, V, resultado, n, n);
+    }
 
     // Liberar memória
     for (int i = 0; i < n; i++) {
