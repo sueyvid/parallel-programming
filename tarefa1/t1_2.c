@@ -17,9 +17,7 @@ void mul_matriz_vetor_coluna_externa(int **matriz, int *vetor, int *resultado, i
 }
 
 int main() {
-    int n;
-    printf("Digite o tamanho da matriz/vetor: ");
-    scanf("%d", &n);
+    int n = 1024;
 
     // Alocar matriz n x n
     int **M = (int **)malloc(n * sizeof(int *));
@@ -46,7 +44,7 @@ int main() {
     int *resultado = (int *)malloc(n * sizeof(int));
 
     // Multiplicação (MxV)
-    for (int rep = 0; rep < 100000; rep++) {
+    for (int rep = 0; rep < 10000; rep++) {
         mul_matriz_vetor_coluna_externa(M, V, resultado, n, n);
     }
 
