@@ -1,18 +1,14 @@
 // column_major.c
 #include <stdio.h>
-#include <time.h>
+#include <stdlib.h>
 
-const int m = 3;
-const int n = 3;
-
-void mul_matriz_vetor_linha_externa(int matriz[][3], int vetor[], int resultado[], int linhas, int colunas) {
+void mul_matriz_vetor_coluna_externa(int **matriz, int *vetor, int *resultado, int linhas, int colunas) {
     // preencher vetor resultado
-    int i;
-    for (i = 0; i < m; i++) {
+    for (int i = 0; i < linhas; i++) {
         resultado[i] = 0;
     }
 
-    // multiplicar
+    // multiplicar (varrendo colunas primeiro)
     for (int j = 0; j < colunas; j++) {
         for (int i = 0; i < linhas; i++) {
             resultado[i] += matriz[i][j] * vetor[j];
@@ -21,51 +17,66 @@ void mul_matriz_vetor_linha_externa(int matriz[][3], int vetor[], int resultado[
 }
 
 int main() {
-    // Definição da matriz
-    int M[m][n];
-    int i, j;
+    int n;
+    printf("Digite o tamanho da matriz/vetor: ");
+    scanf("%d", &n);
 
-    // preencher matriz
-    for (i = 0; i < m; i++) {
-        for (j = 0; j < n; j++) {
-            M[i][j] = i * m + j + 1;
+    // Alocar matriz n x n
+    int **M = (int **)malloc(n * sizeof(int *));
+    for (int i = 0; i < n; i++) {
+        M[i] = (int *)malloc(n * sizeof(int));
+    }
+
+    // Preencher matriz
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            M[i][j] = i * n + j + 1;
         }
     }
 
-    // imprimir matriz
+    // Imprimir matriz
     printf("Matriz:\n");
-    for (i = 0; i < m; i++) {
-        for (j = 0; j < n; j++) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             printf("%d ", M[i][j]);
         }
         printf("\n");
     }
 
-    // Definição do vetor
-    int V[m];
+    // Alocar vetor
+    int *V = (int *)malloc(n * sizeof(int));
 
-    // preencher vetor
-    for (i = 0; i < m; i++) {
+    // Preencher vetor
+    for (int i = 0; i < n; i++) {
         V[i] = i + 1;
     }
 
-    // imprimir vetor
+    // Imprimir vetor
     printf("Vetor:\n");
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%d ", V[i]);
     }
     printf("\n");
 
-    // multiplicação (MxV)
-    int resultado[m];
+    // Alocar resultado
+    int *resultado = (int *)malloc(n * sizeof(int));
 
-    mul_matriz_vetor_linha_externa(M, V, resultado, m, n);
+    // Multiplicação (MxV)
+    mul_matriz_vetor_coluna_externa(M, V, resultado, n, n);
 
     printf("Resultado da multiplicação:\n");
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%d ", resultado[i]);
     }
     printf("\n");
+
+    // Liberar memória
+    for (int i = 0; i < n; i++) {
+        free(M[i]);
+    }
+    free(M);
+    free(V);
+    free(resultado);
 
     return 0;
 }
