@@ -7,10 +7,10 @@
 
 int main() {
     int total_count = 0;
+    int count = 0;
     srand(time(NULL));
-    #pragma omp parallel
+    #pragma omp parallel default(none) firstprivate(count) shared(total_count)
     {
-        int count = 0;
         #pragma omp for
         for (int i = 0; i < N; i++) {
             double x = rand() / (double)RAND_MAX;
