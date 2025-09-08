@@ -1,4 +1,4 @@
-// race_condition.c
+// race_condition_with_synchronization.c
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -7,10 +7,10 @@
 
 int main() {
     int total_count = 0;
+    int count = 0;
     srand(time(NULL));
-    #pragma omp parallel
+    #pragma omp parallel firstprivate(count) shared(total_count)
     {
-        int count = 0;
         #pragma omp for
         for (int i = 0; i < N; i++) {
             double x = rand() / (double)RAND_MAX;
