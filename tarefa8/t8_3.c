@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <omp.h>
 
 #define N 1000000
 #define THREADS 4
 
 int main() {
     int total_count = 0;
-    srand(time(NULL));
 
     #pragma omp parallel num_threads(THREADS)
     {
