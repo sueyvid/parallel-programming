@@ -24,25 +24,6 @@ int main() {
 
     double acuracia = PI_REAL - pi;
     printf("Acurácia: %.15f\n", acuracia);
-
-    // char real[] = "3.14159265358979323846";
-    // char calculado[18];
-
-    // sprintf(calculado, "%.15f", pi);
-
-    // int count = 0;
-    // for (int i = 2; i < 18; i++){
-    //     if (calculado[i] == real[i]) {
-    //         count++;
-    //     }
-    //     else {
-    //         break;
-    //     }
-    // }
-
-    // printf("Casas decimais iguais: %d\n", count);
-
-    // procurar algum caso real que precise de maior precisão assim como o cálculo de pi.
-
+    
     return 0;
 }
