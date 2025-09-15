@@ -58,7 +58,7 @@ int main() {
     No* lista1 = NULL;
     No* lista2 = NULL;
 
-    #pragma omp parallel
+    #pragma omp parallel num_threads(2)
     {
         #pragma omp single
         {
