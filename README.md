@@ -40,3 +40,7 @@ Compare o tempo de execução das versões compiladas com diferentes níveis de 
 ## Task 9
 ### Regiões críticas nomeadas e Locks explícitos
 **Description**: Escreva um programa que cria tarefas para realizar N inserções em duas listas encadeadas, cada uma associada a uma thread. Cada tarefa deve escolher aleatoriamente em qual lista inserir um número. Garanta a integridade das listas evitando condição de corrida e, sempre que possível, use regiões críticas nomeadas para que a inserção em uma lista não bloqueie a outra. Em seguida, generalize o programa para um número de listas definido pelo usuário. Explique por que, nesse caso, regiões críticas nomeadas não são suficientes e por que o uso de locks explícitos se torna necessário.
+
+## Task 10
+### Mecanismos de Sincronização com OpenMP
+**Description**: Implemente novamente o estimador da tarefa 8 que usa um contador compartilhado e o rand_r substituindo o #pragma omp critical pelo #pragma omp atomic. Compare essas duas implementações com suas versões que usam contadores privados. Agora, compare essas com uma 5ª versão que utiliza apenas a cláusula reduction ao invés das diretivas de sincronização. Reflita sobre a aplicabilidade de desses mecanismos em termos de desempenho e produtividade e proponha um roteiro para quando utilizar qual mecanismo de sincronização, incluindo critical nomeadas e locks explícitos.
