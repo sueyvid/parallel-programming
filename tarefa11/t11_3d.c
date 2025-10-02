@@ -36,7 +36,7 @@ int main() {
     double start = omp_get_wtime();
 
     for (int n = 0; n < steps; n++) {
-#pragma omp parallel for collapse(3) schedule(guided, 20)
+#pragma omp parallel for collapse(3) schedule(dynamic, 20)
         for (int k = 0; k < Nz; k++) {
             for (int j = 0; j < Ny; j++) {
                 for (int i = 0; i < Nx; i++) {
