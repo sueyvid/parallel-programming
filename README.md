@@ -44,3 +44,35 @@ Compare o tempo de execução das versões compiladas com diferentes níveis de 
 ## Task 10
 ### Mecanismos de Sincronização com OpenMP
 **Description**: Implemente novamente o estimador da tarefa 8 que usa um contador compartilhado e o rand_r substituindo o #pragma omp critical pelo #pragma omp atomic. Compare essas duas implementações com suas versões que usam contadores privados. Agora, compare essas com uma 5ª versão que utiliza apenas a cláusula reduction ao invés das diretivas de sincronização. Reflita sobre a aplicabilidade de desses mecanismos em termos de desempenho e produtividade e proponha um roteiro para quando utilizar qual mecanismo de sincronização, incluindo critical nomeadas e locks explícitos.
+
+## Task 11
+### Particionamento de dados e Balanceamento de carga
+**Description**: Escreva um código que simule o movimento de um fluido ao longo do tempo usando a equação de Navier-Stokes, considerando apenas os efeitos da viscosidade. Desconsidere a pressão e quaisquer forças externas. Utilize diferenças finitas para discretizar o espaço e simule a evolução da velocidade do fluido no tempo. Inicialize o fluido parado ou com velocidade constante e verifique se o campo permanece estável. Em seguida, crie uma pequena perturbação e observe se ela se difunde suavemente. Após validar o código, paralelize-o com OpenMP e explore o impacto das cláusulas schedule e collapse no desempenho da execução paralela.
+
+## Task 12
+### Avaliação de escalabilidade
+**Description**: Avalie a escalabilidade do seu código de Navier-Stokes utilizando algum nó de computação do NPAD. Procure identificar gargalos de escalabilidade e reporte o seu progresso em versões sucessivas da evolução do código otimizado. Comente sobre a escalabilidade, a escalabilidade fraca e a escalabilidade fortes das versões.
+
+## Task 13
+### Avaliação da Escalabilidade com Afinidade de Threads
+**Description**: Avalie como a escalabilidade do seu código de Navier-Stokes muda ao utilizar os diversos tipos de afinidades de threads suportados pelo sistema operacional e pelo OpenMP no mesmo nó de computação do NPAD que utilizou para a tarefa 12.
+
+## Task 14
+### Programação em memória distribuída
+**Description**: Implemente um programa MPI com exatamente dois processos. O processo 0 deve enviar uma mensagem ao processo 1, que imediatamente responde com a mesma mensagem. Meça o tempo total de execução de múltiplas trocas consecutivas dessa mensagem, utilizando MPI_Wtime. Registre os tempos para diferentes tamanhos, desde mensagens pequenas (como 8 bytes) até mensagens maiores (como 1 MB ou mais). Analise graficamente o tempo em função do tamanho da mensagem e identifique os regimes onde a latência domina e onde a largura de banda se torna o fator principal.
+
+## Task 15
+### Sobreposição de computação e comunicação
+**Description**: Implemente uma simulação da difusão de calor em uma barra 1D, dividida entre dois ou mais processos MPI. Cada processo deve simular um trecho da barra com células extras para troca de bordas com vizinhos. Implemente três versões: uma com MPI_Send/ MPI_Recv, outra com MPI_Isend/ MPI_Irecv e MPI_Wait, e uma terceira usando MPI_Test para atualizar os pontos internos enquanto aguarda a comunicação. Compare os tempos de execução e discuta os ganhos com sobreposição de comunicação e computação.
+
+## Task 16
+### Implementação de Produto Matriz-Vetor Usando MPI
+**Description**: Implemente um programa MPI que calcule o produto y=A⋅x, onde A é uma matriz M×N e x é um vetor de tamanho N. Divida a matriz A por linhas entre os processos com MPI_Scatter, e distribua o vetor x inteiro com MPI_Bcast. Cada processo deve calcular os elementos de y correspondentes às suas linhas e enviá-los de volta ao processo 0 com MPI_Gather. Compare os tempos com diferentes tamanhos de matriz e número de processos.
+
+## Task 18
+### Comparando soma de vetores entre CPU e GPU em OpenMP
+**Description**: Faça os exercícios de adição de vetores, vadd.c, dos slides 27 e 48 do [tutorial de programação de GPUs com OpenMP](https://github.com/UoB-HPC/openmp-tutorial) em um dos nós com GPU do NPAD. Compare os tempos de execução somente na CPU e com o uso da GPU. Reporte seu progresso apresentando os problemas encontrados e as soluções apresentadas.
+
+## Task 19
+### Simulando transferência de calor em GPU com OpenMP
+**Description**: Faça o exercício de transferência de calor (heat.c, slide 64) do [tutorial de programação de GPUs com OpenMP](https://github.com/UoB-HPC/openmp-tutorial). Explore as diretivas de paralelização e movimentação de dados para copiar dados entre host e dispositivo. Experimente com diferentes tamanhos de problema perfilando o programa com o nsys.
