@@ -25,15 +25,15 @@ int main() {
     int ic = Nx/2, jc = Ny/2, kc = Nz/2;
     w[IDX(ic,jc,kc,Nx,Ny)] = 1.0;
 
-    // // Arquivo CSV para saída
-    // FILE *fp = fopen("output.csv", "w");
-    // if (!fp) {
-    //     perror("Erro ao abrir arquivo");
-    //     return 1;
-    // }
-    // fprintf(fp, "step,i,j,k,value\n");
+    // Arquivo CSV para saída
+    FILE *fp = fopen("output.csv", "w");
+    if (!fp) {
+        perror("Erro ao abrir arquivo");
+        return 1;
+    }
+    fprintf(fp, "step,i,j,k,value\n");
 
-    // double start = omp_get_wtime();
+    double start = omp_get_wtime();
 
     for (int n = 0; n < steps; n++) {
 #pragma omp parallel for collapse(3) schedule(guided, 20)
@@ -62,23 +62,23 @@ int main() {
         // Swap
         double *tmp = w; w = w_new; w_new = tmp;
 
-        // // Salva estado a cada X passos (ex: a cada 10)
-        // if (n % 10 == 0) {
-        //     for (int k = 0; k < Nz; k++) {
-        //         for (int j = 0; j < Ny; j++) {
-        //             for (int i = 0; i < Nx; i++) {
-        //                 fprintf(fp, "%d,%d,%d,%d,%f\n", n, i, j, k, w[IDX(i,j,k,Nx,Ny)]);
-        //             }
-        //         }
-        //     }
-        // }
+        // Salva estado a cada X passos (ex: a cada 10)
+        if (n % 100 == 0) {
+            for (int k = 0; k < Nz; k++) {
+                for (int j = 0; j < Ny; j++) {
+                    for (int i = 0; i < Nx; i++) {
+                        fprintf(fp, "%d,%d,%d,%d,%f\n", n, i, j, k, w[IDX(i,j,k,Nx,Ny)]);
+                    }
+                }
+            }
+        }
     }
 
-    // double end = omp_get_wtime();
-    // printf("Simulação finalizada em %f segundos\n", end - start);
-    // printf("Valor no centro = %f\n", w[IDX(ic,jc,kc,Nx,Ny)]);
+    double end = omp_get_wtime();
+    printf("Simulação finalizada em %f segundos\n", end - start);
+    printf("Valor no centro = %f\n", w[IDX(ic,jc,kc,Nx,Ny)]);
 
-    // fclose(fp);
+    fclose(fp);
     free(w); free(w_new);
 
     return 0;
